@@ -5,6 +5,7 @@ A web application that automatically generates course completion certificates an
 ## Features
 
 - **Form-based Input**: Collect student name, email, course name, and course dates
+- **Session Persistence**: Remembers course name and dates for batch sending to multiple students
 - **Google Slides Integration**: Uses a Google Slides template for professional certificate design
 - **Automatic PDF Generation**: Converts the certificate to PDF with placeholder replacement
 - **Email Delivery**: Sends certificates via Gmail API with OAuth2 authentication
