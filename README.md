@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Certificate Generator
 
-## Getting Started
+A web application that automatically generates course completion certificates and sends them via email. Built for Tertiary Infotech Academy Pte Ltd.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Form-based Input**: Collect student name, email, course name, and course dates
+- **Google Slides Integration**: Uses a Google Slides template for professional certificate design
+- **Automatic PDF Generation**: Converts the certificate to PDF with placeholder replacement
+- **Email Delivery**: Sends certificates via Gmail API with OAuth2 authentication
+- **CC Recipients**: Automatically copies admin team on all certificate emails
+- **Professional Email Template**: Includes company signature and branding
+
+## Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + Inline Styles
+- **Form Handling**: React Hook Form
+- **APIs**:
+  - Google Slides API (template management)
+  - Google Drive API (file operations)
+  - Gmail API (email delivery)
+- **Authentication**: Google OAuth2
+- **Deployment**: Vercel
+
+## How It Works
+
+1. User fills out the certificate form (student name, email, course name, dates)
+2. App copies the Google Slides template
+3. Placeholders (`[Student Name]`, `[Course Name]`, `[Course Dates]`) are replaced
+4. Slide is exported as PDF
+5. Email is sent with PDF attachment via Gmail API
+6. Temporary slide copy is deleted
+
+## Environment Variables
+
+Create a `.env.local` file with:
+
+```env
+EMAIL_USER=your-email@domain.com
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_REFRESH_TOKEN=your-refresh-token
+GOOGLE_SLIDES_TEMPLATE_ID=your-slides-template-id
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Getting Google OAuth2 Credentials
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create a project in [Google Cloud Console](https://console.cloud.google.com/)
+2. Enable Gmail API, Google Drive API, and Google Slides API
+3. Create OAuth 2.0 credentials (Web application)
+4. Add `https://developers.google.com/oauthplayground` to authorized redirect URIs
+5. Use [OAuth Playground](https://developers.google.com/oauthplayground) to get refresh token with scopes:
+   - `https://mail.google.com/`
+   - `https://www.googleapis.com/auth/drive`
+   - `https://www.googleapis.com/auth/presentations`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Setting Up the Certificate Template
 
-## Learn More
+1. Create a Google Slides presentation with your certificate design
+2. Add placeholders: `[Student Name]`, `[Course Name]`, `[Course Dates]`
+3. Copy the Slide ID from the URL
+4. Set `GOOGLE_SLIDES_TEMPLATE_ID` in your environment
 
-To learn more about Next.js, take a look at the following resources:
+## Development
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Install dependencies
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Run development server
+npm run dev
 
-## Deploy on Vercel
+# Build for production
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy to Vercel and add all environment variables in the project settings.
+
+## License
+
+Proprietary - Tertiary Infotech Academy Pte Ltd
