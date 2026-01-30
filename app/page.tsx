@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface FormData {
@@ -10,6 +10,8 @@ interface FormData {
   courseDates: string;
 }
 
+const STORAGE_KEY = "certificate-form-data";
+
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
@@ -18,8 +20,19 @@ export default function Home() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<FormData>();
+
+  // Load saved course data on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const { courseName, courseDates } = JSON.parse(saved);
+      if (courseName) setValue("courseName", courseName);
+      if (courseDates) setValue("courseDates", courseDates);
+    }
+  }, [setValue]);
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -37,11 +50,24 @@ export default function Home() {
       const result = await response.json();
 
       if (response.ok) {
+        // Save course data for next submission
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          courseName: data.courseName,
+          courseDates: data.courseDates,
+        }));
+
         setResult({
           success: true,
           message: `Certificate sent successfully to ${data.studentEmail}!`,
         });
-        reset();
+
+        // Only reset student fields, keep course fields
+        reset({
+          studentName: "",
+          studentEmail: "",
+          courseName: data.courseName,
+          courseDates: data.courseDates,
+        });
       } else {
         setResult({
           success: false,
