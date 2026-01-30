@@ -215,7 +215,7 @@ export default function Home() {
         </div>
 
         <p style={{ marginTop: "24px", textAlign: "center", fontSize: "14px", color: "#6b7280" }}>
-          Powered by Tertiary Courses
+          Powered by Tertiary Infotech Academy Pte Ltd
         </p>
       </div>
     </div>
