@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Certificate Generator - Tertiary Courses",
+  title: "Ghana Cert Generator",
   description: "Generate and send course completion certificates",
 };
 

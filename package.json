@@ -1,5 +1,5 @@
 {
-  "name": "create-cert",
+  "name": "ghana-cert-generator",
   "version": "0.1.0",
   "private": true,
   "scripts": {
