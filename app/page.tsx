@@ -108,7 +108,7 @@ export default function Home() {
       <div style={{ maxWidth: "448px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "32px" }}>
           <h1 style={{ fontSize: "30px", fontWeight: "bold", color: "#111827" }}>
-            Certificate Generator
+            Ghana Cert Generator
           </h1>
           <p style={{ marginTop: "8px", color: "#4b5563" }}>
             Generate and send course completion certificates
